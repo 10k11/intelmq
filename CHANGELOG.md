@@ -30,6 +30,7 @@ Please refer to the [NEWS](NEWS.md) for a list of changes which have an affect o
 - `intelmq.bots.parsers.generic_csv.parser_csv`: Handle empty string parameter `columns_required` as unset (PR#2680 by Sebastian Wagner, fixes #2679).
 
 #### Experts
+- `intelmq.bots.experts.field_reducer.expert`: Blacklist: also remove sub-fields of `extra` keys, e.g. `extra.source` removes `extra.source.naics` (fixes #2558).
 
 #### Outputs
 - `intelmq.bots.outputs.smtp_batch.output`:

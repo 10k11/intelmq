@@ -2820,6 +2820,7 @@ The field reducer bot is capable of removing fields from events.
 
 (required, string) Allowed values: `whitelist` or `blacklist`. When `whitelist` is set, tnly the fields in `keys` will
 passed along. When `blacklist` is set then the fields in `keys` will be removed from events.
+Keys in the `extra` namespace (e.g. `extra.source`) also remove all of their sub-fields (e.g. `extra.source.naics`).
 
 **`keys`**
 

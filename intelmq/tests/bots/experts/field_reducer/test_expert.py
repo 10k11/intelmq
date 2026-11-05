@@ -42,6 +42,26 @@ class TestFieldReducerExpertBot(test.BotTestCase, unittest.TestCase):
         self.sysconfig = {'type': 'blacklist', 'keys': 'time.source, time.observation'}
         self.run_bot()
         self.assertMessageEqual(0, BLACKLIST_OUTPUT)
+    def test_blacklist_extra_subfields(self):
+        self.input_message = {**EXAMPLE_INPUT,
+                              "extra.source.naics": 1,
+                              "extra.source.sic": 2,
+                              "extra.sourcefoo": 3,
+                              "extra.other": 4,
+                              }
+        self.sysconfig = {'type': 'blacklist', 'keys': ['extra.source']}
+        self.run_bot()
+        self.assertMessageEqual(0, {**EXAMPLE_INPUT,
+                                    "extra.sourcefoo": 3,
+                                    "extra.other": 4,
+                                    })
+
+    def test_blacklist_extra_all(self):
+        self.input_message = {**EXAMPLE_INPUT, "extra.a": 1, "extra.b.c": 2}
+        self.sysconfig = {'type': 'blacklist', 'keys': ['extra']}
+        self.run_bot()
+        self.assertMessageEqual(0, EXAMPLE_INPUT)
+
 
 if __name__ == '__main__':  # pragma: no cover
     unittest.main()

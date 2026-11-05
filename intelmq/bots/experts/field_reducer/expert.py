@@ -35,6 +35,11 @@ class FieldReducerExpertBot(ExpertBot):
             for key in self.keys:
                 if key in event:
                     del event[key]
+                if key == 'extra' or key.startswith('extra.'):
+                    # extra is a flattened dictionary: also remove all sub-fields
+                    prefix = key + '.'
+                    for field in [field for field in event if field.startswith(prefix)]:
+                        del event[field]
 
         self.send_message(event)
         self.acknowledge_message()
